@@ -13,7 +13,25 @@ touch1 = touchio.TouchIn(board.A0)
 touch2 = touchio.TouchIn(board.A1)
 touch3 = touchio.TouchIn(board.A2)
 
-apin = analogio.AnalogIn(board.A4)
+# D1: init pwm (sound out)
+
+pwmspk1 = pwmio.PWMOut(board.D1, duty_cycle=0x7fff, frequency=440, variable_frequency=True)
+
+# D2: init potentiometer
+
+apin = analogio.AnalogIn(board.A4) # this is D2
+
+# D3: init sync in
+
+syncin = DigitalInOut(board.D3)
+syncin.direction = Direction.INPUT
+syncin.pull = Pull.DOWN
+
+# D4: init push switch
+
+switch = DigitalInOut(board.D4)
+switch.direction = Direction.INPUT
+switch.pull = Pull.UP
 
 # init LEDs
 
@@ -28,29 +46,17 @@ time.sleep(1)  # Sleep for a bit to avoid a race condition on some systems
 
 # turn red = calibration
 
-ledR.value = True
+ledR.value = False
 ledG.value = True
-ledB.value = False
+ledB.value = True
 
 high1 = 0
 high2 = 0
 high3 = 0
 
-
-def play_sound(frequency, duty_cycle):
-    f = math.floor(apin.value/32)
-    if f > 10000:
-        f = 10000
-    if f < 20:
-        f= 20
-    pwmspk1.frequency = frequency + f
-    pwmspk1.duty_cycle = duty_cycle
-
-
-
 # find low level
 
-for x in range(0,100):
+for x in range(0,20):
     v = touch1.raw_value
     if v > high1:
         high1 = v
@@ -60,18 +66,16 @@ for x in range(0,100):
     v = touch3.raw_value
     if v > high3:
         high3 = v
-    time.sleep(.01)
+    ledR.value = True
+    time.sleep(.05)
+    ledR.value = False
+    time.sleep(.05)
 
-switch = DigitalInOut(board.D4)
-switch.direction = Direction.INPUT
-switch.pull = Pull.UP
+high1 = int(high1*1.1)
+high2 = int(high2*1.1)
+high3 = int(high3*1.1)
 
-# init PWMs
-pwmspk1 = pwmio.PWMOut(board.D1, duty_cycle=0x7fff, frequency=440, variable_frequency=True)
-# pwmspk2 = pulseio.PWMOut(board.D2, duty_cycle=0x7fff, frequency=440, variable_frequency=True)
-# pwmspk3 = pulseio.PWMOut(board.D3, duty_cycle=0x7fff, frequency=440, variable_frequency=True)
-
-# use button values to set freqency, no sound if near low level
+# global variables
 
 rec_f = {}
 rec_d = {}
@@ -82,8 +86,41 @@ recmode = "LIVE"
 vf = 440
 vd = 0x7fff
 
+syncsignal = False
+synctrigger = True
+
+# functions
+
+def play_sound(frequency, duty_cycle):
+    f = math.floor(apin.value/32)
+    if f > 10000:
+        f = 10000
+    if f < 20:
+        f= 20
+    pwmspk1.frequency = frequency + f
+    pwmspk1.duty_cycle = duty_cycle
+
+def wait_sync():
+    global syncsignal
+    global synctrigger
+    for x in range(4):
+        if syncin.value==False: # inverted
+            # ledR.value = False + just for debugging
+            # ledG.value = False
+            # ledB.value = False
+            if syncsignal==False: # detect rising edge
+                syncsignal=True
+                if synctrigger==False: # set flag
+                    synctrigger=True
+                    return # w/o sleeping
+        else:
+            syncsignal=False
+        time.sleep(.01)
+
 while True:
-    time.sleep(.04)
+
+    wait_sync()
+
     if touch1.raw_value > high1+20:
         vf = touch1.raw_value>>4
         vd = 0x7fff
@@ -95,11 +132,6 @@ while True:
         vd = 0x7fff
     else:
         vd = 0
-
-    # pwmspk1.frequency = vf
-    # pwmspk1.duty_cycle = vd
-
-    #  trigge r
 
     if (not switch.value) and (recmode=="LIVE" or recmode=="PLAY"):
         recmode="TESTREC"
@@ -117,7 +149,7 @@ while True:
         ledR.value = False
         ledG.value = True
         ledB.value = True
-        rec_rc = rec_rc + 1
+        rec_rc = rec_rc+1
         rec_f[rec_rc] = vf
         rec_d[rec_rc] = vd
         play_sound(vf,vd)
@@ -125,18 +157,28 @@ while True:
             recmode="ACTIVEREC"
         rec_pc = 0
     elif ((switch.value) and recmode=="TESTREC") or recmode=="LIVE":
+        recmode="LIVE"
         ledR.value = True
         ledG.value = True
         ledB.value = False
         play_sound(vf,vd)
-        recmode="LIVE"
         rec_rc=0
         rec_pc=0
     elif ((switch.value) and recmode=="ACTIVEREC") or recmode=="PLAY":
+        recmode="PLAY"
         ledR.value = True
         ledG.value = False
         ledB.value = True
-        play_sound(rec_f[rec_pc],rec_d[rec_pc])
-        rec_pc = rec_pc+1
-        rec_pc = rec_pc%rec_rc
-        recmode="PLAY"
+        if rec_pc<rec_rc: # play sequence
+            rec_pc = rec_pc+1
+            play_sound(rec_f[rec_pc],rec_d[rec_pc])
+            synctrigger=False # we got it
+        elif rec_pc==rec_rc and synctrigger==True: # end reached, sync is true => restart
+            rec_pc = 0 # restart
+            play_sound(rec_f[rec_pc],rec_d[rec_pc])
+            synctrigger=False # we got it
+        else: # rec_pc==rec_rc and synctrigger==False
+            ledR.value = False
+            ledG.value = True
+            ledB.value = False
+            play_sound(440,0) # silence
