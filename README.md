@@ -4,8 +4,8 @@ This is a synthesizer DIY project based on @bleeptrack's [Picoplanets](https://g
 
 Features:
 - 3 voices polyphonic synthesis, based on PWM
-- recording and looped playback of sequences
-- pitch control
+- Recording and looped playback of sequences
+- Pitch control
 - PT2399 echo/reverb unit
 - Sync in/out jacks on order to sync the Interplanetary Synth with other analog synthesizers
 
