@@ -1,6 +1,6 @@
 # Interplanetary Synth
 
-This is a synthesizer DIY project based on @bleeptrack's [Picoplanets](https://github.com/bleeptrack/picoplanet).
+This is a DIY synthesizer project based on Bleeptrack's [Picoplanets](https://github.com/bleeptrack/picoplanet).
 
 Features:
 - 3 voices polyphonic synthesis, based on PWM
