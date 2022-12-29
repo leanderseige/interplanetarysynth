@@ -89,10 +89,6 @@ for x in range(0,20):
     ledR.value = False
     time.sleep(.05)
 
-high1 = int(high1*1.1)
-high2 = int(high2*1.1)
-high3 = int(high3*1.1)
-
 # global variables
 
 rec_f = {} # recorded frequencies
@@ -121,7 +117,8 @@ def play_sound(frequency, duty_cycle): # play a sound for us
 def wait_sync():
     global syncsignal
     global synctrigger
-    for x in range(8):
+    global recmode
+    for x in range(5):
         if syncin.value==False: # inverted, we should have a switch for this
             # ledR.value = False # just for debugging
             # ledG.value = False
@@ -130,22 +127,23 @@ def wait_sync():
                 syncsignal=True
                 if synctrigger==False: # set flag
                     synctrigger=True
-                    return # w/o sleeping
+                    if recmode=="PLAY" and rec_pc==rec_rc:
+                        return # w/o sleeping
         else:
             syncsignal=False
-        time.sleep(.005)
+        time.sleep(.01)
 
 while True:
 
     wait_sync()
 
-    if touch1.raw_value > high1+20:
+    if touch1.raw_value > high1+10:
         vf = touch1.raw_value>>4
         vd = 0x7fff
-    elif touch2.raw_value > high2+20:
+    elif touch2.raw_value > high2+10:
         vf = touch2.raw_value>>2
         vd = 0x7fff
-    elif touch3.raw_value > high3+20:
+    elif touch3.raw_value > high3+10:
         vf = touch3.raw_value>>1
         vd = 0x7fff
     else:
