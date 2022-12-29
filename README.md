@@ -15,6 +15,8 @@ LEDs:
 - Green: playback of recorded frequencies
 - Purple: waiting for next rising edge of sync signal to restart playback
 
+Here is a demo of how to use the Interplanetary Synth and how it sounds: https://www.youtube.com/watch?v=XGoNoBU3fJs
+
 # Circuit Diagram
 
 ![Circuit Diagram of the Interplanetary Synth](circuit.png)
