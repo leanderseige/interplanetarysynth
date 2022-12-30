@@ -1,6 +1,6 @@
 # Interplanetary Synth
 
-This is a DIY synthesizer project based on Bleeptrack's [Picoplanets](https://github.com/bleeptrack/picoplanet).
+This is a DIY synthesizer project based on Bleeptrack's [Picoplanets](https://github.com/bleeptrack/Picoplanet).
 
 ![Photo Interplanetary Synth](photos/photo2.png)
 
@@ -11,7 +11,7 @@ Features:
 - PT2399-based echo/reverb unit
 - Sync in/out jacks in order to sync the Interplanetary Synth with other analog synthesizers
 
-After turning the synth on all three voice start in live-mode. When pressing and holding the button, the picoplanet starts recording what is currently played. After releasing the button the picoplanet immediately plays what was recorded. Looping starts with the next rising sync edge (after frequency dividing, see circuit). When pressing the button shortly without touching any touch buttons the picoplanet returns into live-mode.
+After turning the synth on all three voices start in live-mode. When pressing and holding the button, the Picoplanet starts recording what is currently played. After releasing the button the Picoplanet immediately plays what was recorded. Looping starts with the next rising sync edge (after frequency dividing, see circuit). When pressing the button quickly (without touching any touch buttons) the Picoplanet returns into live-mode.
 
 I am sure the software can be improved in several ways. Find the code.py right here in the root directory.
 
@@ -28,7 +28,7 @@ Here is a demo of how to use the Interplanetary Synth and how it sounds: https:/
 ![Circuit Diagram of the Interplanetary Synth](circuit.png)
 
 The circuit consists of
-- Three Picoplanets,
+- three Picoplanets,
 - an Echo/Reverb unit (inspired by Peter Vis' https://www.petervis.com/guitar-circuits/pt2399/testing-and-troubleshooting.html but with important changes on Pins 2, 3 and 4 according to https://www.petervis.com/guitar-circuits/pt2399/basic-echo-circuit.html) and
 - a unit to handle Sync signals using a CD4017 (frequency divider) and a UDN2981 (driver)
 
@@ -36,6 +36,6 @@ The four usable Pins of the Picoplanets work as PWM-Output, Potentiometer-Input,
 
 # Case
 
-I used a simple wooden box (https://amzn.to/3G5dJ2B) for housing everything except the Picoplanets. In order to get them up at a 45° angle to the user, I designed and printed a special top case. Find the model in the folder '3dmodels'.
+I used a simple wooden box (https://amzn.to/3G5dJ2B) for housing everything except the Picoplanets. In order to get them up at a 45° angle to the user, I designed and printed a special top-case. Find the model in the folder '3dmodels'.
 
-In order to the make the LEDs visible I drilled additional 5mm holes in it (forgot about that beforehand) and pressed small pieces of 5mm fibre optic cable (https://amzn.to/3QgvRLP) into them. This work surprisingly well, the light of the small LED appears really great at the end of the fibre cables.
+To make the LEDs visible, I drilled additional 5mm holes in the top case (I had forgotten to do this before) and pressed small pieces of 5mm fibre optic cable (https://amzn.to/3QgvRLP) into them. This worked surprisingly well. The light of the small LED appears really great at the end of the fibre cables.
