@@ -21,11 +21,13 @@ LEDs:
 - Green: playback of recorded frequencies
 - Purple: waiting for next rising edge of sync signal to restart playback
 
+## Demo Video
+
 [![Demo Video](photos/yt.webp)](https://www.youtube.com/watch?v=XGoNoBU3fJs)
 
 Here is a demo of how to use the Interplanetary Synth and how it sounds: https://www.youtube.com/watch?v=XGoNoBU3fJs
 
-# Circuit Diagram
+## Circuit Diagram
 
 I hope that I have reproduced everything correctly in the circuit diagram. Use at your own risk.
 
@@ -38,7 +40,7 @@ The circuit consists of
 
 The four usable Pins of the Picoplanets work as PWM-Output, Potentiometer-Input, Push-Button-Input and Sync-Signal-Input.
 
-# Case
+## Case
 
 I used a simple wooden box (https://amzn.to/3G5dJ2B) for housing everything except the Picoplanets and I painted it black. In order to get them up at a 45° angle to the user, I designed and printed a special top-case. Find the model in the folder '3dmodels'.
 
