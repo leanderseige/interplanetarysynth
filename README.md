@@ -9,7 +9,7 @@ Features:
 - PT2399 echo/reverb unit
 - Sync in/out jacks on order to sync the Interplanetary Synth with other analog synthesizers
 
-![Photo Interplanetary Synth](photos/photo1.png)
+![Photo Interplanetary Synth](photos/photo1small.png)
 
 LEDs:
 - Blue: live mode, synth plays what is currently played on the touch buttons
