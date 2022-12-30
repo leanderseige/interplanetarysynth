@@ -25,6 +25,8 @@ Here is a demo of how to use the Interplanetary Synth and how it sounds: https:/
 
 # Circuit Diagram
 
+I hope that I have reproduced everything correctly in the circuit diagram. Use at your own risk.
+
 ![Circuit Diagram of the Interplanetary Synth](circuit.png)
 
 The circuit consists of
