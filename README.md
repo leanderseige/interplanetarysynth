@@ -2,14 +2,14 @@
 
 This is a DIY synthesizer project based on Bleeptrack's [Picoplanets](https://github.com/bleeptrack/picoplanet).
 
+![Photo Interplanetary Synth](photos/photo2.png)
+
 Features:
 - 3 voices polyphonic synthesis, based on PWM
 - Recording and looped playback of sequences
 - Pitch control
 - PT2399 echo/reverb unit
 - Sync in/out jacks on order to sync the Interplanetary Synth with other analog synthesizers
-
-![Photo Interplanetary Synth](photos/photo2.png)
 
 LEDs:
 - Blue: live mode, synth plays what is currently played on the touch buttons
