@@ -36,6 +36,6 @@ The four usable Pins of the Picoplanets work as PWM-Output, Potentiometer-Input,
 
 # Case
 
-I used a simple wooden box (https://amzn.to/3G5dJ2B) for housing everything except the Picoplanets. In order to get them up at a 45° angle to the user, I designed and printed a special top-case. Find the model in the folder '3dmodels'.
+I used a simple wooden box (https://amzn.to/3G5dJ2B) for housing everything except the Picoplanets and I painted it black. In order to get them up at a 45° angle to the user, I designed and printed a special top-case. Find the model in the folder '3dmodels'.
 
 To make the LEDs visible, I drilled additional 5mm holes in the top case (I had forgotten to do this before) and pressed small pieces of 5mm fibre optic cable (https://amzn.to/3QgvRLP) into them. This worked surprisingly well. The light of the small LED appears really great at the end of the fibre cables.
