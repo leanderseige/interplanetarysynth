@@ -5,14 +5,18 @@ This is a DIY synthesizer project based on Bleeptrack's [Picoplanets](https://gi
 ![Photo Interplanetary Synth](photos/photo2.png)
 
 Features:
-- 3 voices polyphonic synthesis, based on PWM
+- 3 voices, polyphonic, based on PWM
 - Recording and looped playback of sequences
 - Pitch control
-- PT2399 echo/reverb unit
-- Sync in/out jacks on order to sync the Interplanetary Synth with other analog synthesizers
+- PT2399-based echo/reverb unit
+- Sync in/out jacks in order to sync the Interplanetary Synth with other analog synthesizers
+
+After turning the synth on all three voice start in live-mode. When pressing and holding the button, the picoplanet starts recording what is currently played. After releasing the button the picoplanet immediately plays what was recorded. Looping starts with the next rising sync edge (after frequency dividing, see circuit). When pressing the button shortly without touching any touch buttons the picoplanet returns into live-mode.
+
+I am sure the software can be improved in several ways. Find the code.py right here in the root directory.
 
 LEDs:
-- Blue: live mode, synth plays what is currently played on the touch buttons
+- Blue: live-mode, synth outputs what is currently played on the touch buttons
 - Red: recording of what is currently played on the touch buttons
 - Green: playback of recorded frequencies
 - Purple: waiting for next rising edge of sync signal to restart playback
